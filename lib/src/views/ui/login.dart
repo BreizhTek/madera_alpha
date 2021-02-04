@@ -1,9 +1,10 @@
 import 'package:dart_strapi/dart_strapi.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:madera_prototype/src/buisness_logic/services/api_services/strapi_helper.dart';
+import 'package:madera_prototype/src/buisness_logic/services/api_services/api.dart';
 import 'package:madera_prototype/src/views/components/reusable_widgets.dart';
 import 'package:madera_prototype/src/views/utils/style.dart';
+import 'package:madera_prototype/src/buisness_logic/utils/configuration.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
+
   // LoginResponse _response;
   String _email, _password;
   bool isLargeScreen = false;
@@ -26,6 +28,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     isLargeScreen = appSetting.getDeviceSize(context);
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: reusableWidgets.header(isLargeScreen),
         body: Form(
             key: _formKey,
@@ -55,10 +58,9 @@ class _LoginState extends State<Login> {
   }
 
   void _submit() {
-
     final form = _formKey.currentState;
     if (form.validate()) {
-         Api(_email, _password).getApi();
+      Api(_email, _password).getApi();
     }
   }
 
@@ -68,8 +70,14 @@ class _LoginState extends State<Login> {
       padding: new EdgeInsets.only(top: 16.0),
       alignment: Alignment.topLeft,
       width: isLargeScreen
-          ? MediaQuery.of(context).size.width / 2
-          : MediaQuery.of(context).size.width / 3,
+          ? MediaQuery
+          .of(context)
+          .size
+          .width / 2
+          : MediaQuery
+          .of(context)
+          .size
+          .width / 3,
       decoration: const BoxDecoration(
         border: Border(
           bottom: BorderSide(width: 3.0, color: mainBlue),
@@ -79,13 +87,19 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Container textField(
-      String hintText, String textEmptyMessage, bool obscureText) {
+  Container textField(String hintText, String textEmptyMessage,
+      bool obscureText) {
     return Container(
       margin: new EdgeInsets.symmetric(vertical: 15.0),
       width: isLargeScreen
-          ? MediaQuery.of(context).size.width / 2.0
-          : MediaQuery.of(context).size.width / 1.3,
+          ? MediaQuery
+          .of(context)
+          .size
+          .width / 2.0
+          : MediaQuery
+          .of(context)
+          .size
+          .width / 1.3,
       child: TextFormField(
         obscureText: obscureText,
         enableSuggestions: false,
@@ -98,7 +112,7 @@ class _LoginState extends State<Login> {
           contentPadding: EdgeInsets.all(15.0),
         ),
         onChanged: (value) {
-          if(hintText == "Email") {
+          if (hintText == "Email") {
             this._email = value;
           } else {
             this._password = value;
@@ -130,7 +144,10 @@ class _LoginState extends State<Login> {
 
   Container button(String text) {
     return Container(
-      width: MediaQuery.of(context).size.width / 3.3,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width / 3.3,
       margin: new EdgeInsets.symmetric(vertical: 15.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: mainBlue),
@@ -141,11 +158,5 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-}
-
-class appSetting {
-  static bool getDeviceSize(BuildContext context) {
-    return MediaQuery.of(context).size.width > 600 ? true : false;
   }
 }

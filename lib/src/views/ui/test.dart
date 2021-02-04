@@ -4,7 +4,7 @@ import 'package:dart_strapi/dart_strapi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:madera_prototype/src/buisness_logic/services/api_services/strapi_helper.dart';
+import 'package:madera_prototype/src/buisness_logic/services/api_services/api.dart';
 
 
 class Test extends StatefulWidget {
