@@ -13,11 +13,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
 
-  // LoginResponse _response;
   String _email, _password;
-  bool isLargeScreen = false;
 
   @override
   void initState() {
@@ -26,7 +23,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    isLargeScreen = appSetting.getDeviceSize(context);
+    appSetting(context);
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: reusableWidgets.header(isLargeScreen),

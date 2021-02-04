@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+bool isLargeScreen = false;
+
 class appSetting {
 
-  bool isLargeScreen;
+  appSetting(BuildContext context){
+   isLargeScreen = getDeviceSize(context);
+  }
 
   static bool getDeviceSize(BuildContext context) {
     return MediaQuery
