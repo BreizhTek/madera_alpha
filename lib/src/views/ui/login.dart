@@ -41,12 +41,10 @@ class _LoginState extends State<Login> {
                       textField(
                           "Email",
                           "Vous devez renseigner une adresse Email",
-                          "email",
                           false),
                       textField(
                           "Mot de passe",
                           "Vous devez renseigner un mot de passe",
-                          "password",
                           true),
                       button("CONNEXION"),
                       ThemeText.simpleText(
@@ -57,12 +55,11 @@ class _LoginState extends State<Login> {
   }
 
   void _submit() {
-    print( "test 1: ");
-    print(_email);
+
     final form = _formKey.currentState;
-    // if (form.validate()) {
+    if (form.validate()) {
          Api(_email, _password).getApi();
-    // }
+    }
   }
 
   Container subTitle(String text) {
@@ -75,7 +72,7 @@ class _LoginState extends State<Login> {
           : MediaQuery.of(context).size.width / 3,
       decoration: const BoxDecoration(
         border: Border(
-          bottom: BorderSide(width: 3.0, color: Color(0xFF186AA5)),
+          bottom: BorderSide(width: 3.0, color: mainBlue),
         ),
       ),
       child: ThemeText.subTitle(isLargeScreen, text),
@@ -83,7 +80,7 @@ class _LoginState extends State<Login> {
   }
 
   Container textField(
-      String hintText, String textEmptyMessage, String field, bool obscureText) {
+      String hintText, String textEmptyMessage, bool obscureText) {
     return Container(
       margin: new EdgeInsets.symmetric(vertical: 15.0),
       width: isLargeScreen
@@ -101,7 +98,7 @@ class _LoginState extends State<Login> {
           contentPadding: EdgeInsets.all(15.0),
         ),
         onChanged: (value) {
-          if(field == "email") {
+          if(hintText == "Email") {
             this._email = value;
           } else {
             this._password = value;
