@@ -67,24 +67,15 @@ class _ClientsList extends State<ClientsList> {
 
   List<Widget> rowClients(){
     List<Widget> rows = [];
-    rows.add(
-        Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              button("Nouveau devis", context),
-              button("Nouveau client", context),
-            ]
-        )
-    );
-    rows.add(rowHeadQuotes());
-    rows.add(
-        Row(
-            children: <Widget>[
-              Text(''),
-              Divider(color: Colors.blue[800]),
-            ]
-        )
-    );
+
+    // rows.add(
+    //     Row(
+    //         children: <Widget>[
+    //           Text(''),
+    //           Divider(color: Colors.blue[800]),
+    //         ]
+    //     )
+    // );
     for(var i=0; i<_clientsList.length; i++) {
       rows.add(
           Row(
@@ -95,28 +86,15 @@ class _ClientsList extends State<ClientsList> {
                   color: Colors.blue[800],
                   onPressed: () {},//quote.Id
                 ),
-                Text(_clientsList[i].data['Ammount'].toString()),
-                Text(_clientsList[i].data['Create']),
-                Text(_clientsList[i].data['client']['Firstname'] +' ' +_clientsList[i].data['client']['Lastname'] ),
-                Text(_clientsList[i].data['status']['Designation']),
+                Text(_clientsList[i].data['Firstname'].toString()),
+                Text(_clientsList[i].data['Lastname'].toString()),
+                Text(_clientsList[i].data['Adresse'].toString()),
+
               ]
           )
       );
     }
     return rows;
-  }
-
-  Row rowHeadQuotes(){
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Text('Afficher'),
-          Text('Numéro de commande'),
-          Text('Date'),
-          Text('Client'),
-          Text('Status'),
-        ]
-    );
   }
 
 }
