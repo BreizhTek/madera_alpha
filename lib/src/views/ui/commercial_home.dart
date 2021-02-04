@@ -91,7 +91,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
             ]
           )
       );
-      rows.add(rowHeadQuotes());
+      //rows.add(rowHeadQuotes());
       rows.add(
           Row(
               children: <Widget>[
@@ -101,21 +101,33 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
           )
       );
       for(var i=0; i<_quotesList.length; i++) {
-        rows.add(
-            Row(
+        rows.add(Container(
+            width: MediaQuery.of(context).size.width,
+            child:Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.search),
-                    color: Colors.blue[800],
-                    onPressed: () {},
+
+                  OutlinedButton(
+                    onPressed: () =>{},
+                    //icon: Icon(Icons.remove_red_eye),color: Colors.blue[800])
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.remove_red_eye),
+                          color: mainBlue,
+                        ),
+                        Text(_quotesList[i].data['Ammount'].toString()),
+                        Text(_quotesList[i].data['Create']),
+                        Text(_quotesList[i].data['client']['Firstname'] + ' ' +_quotesList[i].data['client']['Lastname'] ),
+                        Text(_quotesList[i].data['status']['Designation']),
+                      ],
+                    ),
+
+
                   ),
-                  Text(_quotesList[i].data['Ammount'].toString()),
-                  Text(_quotesList[i].data['Create']),
-                  Text(_quotesList[i].data['client']['Firstname'] +' ' +_quotesList[i].data['client']['Lastname'] ),
-                  Text(_quotesList[i].data['status']['Designation']),
                 ]
             )
+        )
         );
       }
       return rows;
