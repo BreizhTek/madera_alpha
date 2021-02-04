@@ -34,6 +34,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: reusableWidgets.header(''),
+      bottomNavigationBar: reusableWidgets.bottomBar(),
 
       body: SafeArea(
         child: FutureBuilder<bool> (
@@ -53,28 +54,6 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
             }
           }
         )
-      ),
-
-      //Partie NavigationBar (bas de l'écran)
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.file_copy),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.exit_to_app),
-            label: '',
-          ),
-        ],
-        //currentIndex: _selectedIndex,
-        selectedItemColor: Color(0xFF186AA5),
-        iconSize: 50,
-        //onTap: _onItemTapped,
       ),
     );
     // TODO: implement build
