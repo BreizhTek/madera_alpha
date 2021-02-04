@@ -13,7 +13,7 @@ class Madera extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/commercial_1',
+      initialRoute: '/commercial',
       routes: routes,
     );
   }
