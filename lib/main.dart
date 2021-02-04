@@ -10,10 +10,9 @@ void main() => runApp(Madera());
 class Madera extends StatelessWidget {
 
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/commercial_1',
+      initialRoute: '/',
       routes: routes,
     );
   }
