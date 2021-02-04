@@ -39,6 +39,16 @@ class Api  {
     return client;
   }
 
+  static Future<List<ContentType>> getProjects() async {
+    List<ContentType> projects = await Api._strapiClient.find("projects");
+    return projects;
+  }
+
+  static Future<ContentType> getProject(String id) async {
+    ContentType project = await Api._strapiClient.findOne("projects", id);
+    return project;
+  }
+
   static Future<List<ContentType>> getQuotes() async {
     List<ContentType> quotes = await Api._strapiClient.find("quotes");
     return quotes;

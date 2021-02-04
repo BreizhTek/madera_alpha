@@ -9,8 +9,8 @@ import 'package:madera_prototype/src/buisness_logic/utils/configuration.dart';
 class Commercial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: AsyncStatefulWidget(),
+    return Scaffold(
+        body: AsyncStatefulWidget(),
     );
   }
 }
@@ -60,7 +60,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
     throw UnimplementedError();
   }
 
-  Container button(String text, context) {
+  Container button(String text, context, action) {
     return Container(
       width: MediaQuery
           .of(context)
@@ -69,7 +69,9 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
       margin: new EdgeInsets.symmetric(vertical: 15.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: mainBlue),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, "/commercial_1");
+        },
         child: FittedBox(
           fit: BoxFit.fitWidth,
           child: Text(text),
@@ -78,15 +80,14 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
     );
   }
 
-
   List<Widget> rowQuotes(){
       List<Widget> rows = [];
       rows.add(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              button("Nouveau devis", context),
-              button("Nouveau client", context),
+              button("Nouveau devis", context, false),
+              button("Nouveau client", context, false),
             ]
           )
       );
@@ -107,7 +108,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
                   IconButton(
                     icon: Icon(Icons.search),
                     color: Colors.blue[800],
-                    onPressed: () {},//quote.Id
+                    onPressed: () {},
                   ),
                   Text(_quotesList[i].data['Ammount'].toString()),
                   Text(_quotesList[i].data['Create']),
