@@ -57,7 +57,15 @@ class _LoginState extends State<Login> {
   void _submit() {
     final form = _formKey.currentState;
     if (form.validate()) {
-      Api(_email, _password).getApi();
+      Api.connect(_email, _password);
+    }
+  }
+
+  void test() async {
+    await Api.connect(_email, _password);
+    List<ContentType> quotes = await Api.getQuotes();
+    for(var i = 0; i < quotes.length; i++){
+      print(quotes[i].data);
     }
   }
 
