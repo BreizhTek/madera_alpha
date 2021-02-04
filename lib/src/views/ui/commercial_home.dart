@@ -15,6 +15,46 @@ class Commercial extends StatelessWidget {
           icon: Icon(Icons.wifi),
           onPressed: () {},
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.file_copy),
+            color: Color(0xFF186AA5),
+            iconSize: 50,
+            onPressed: () {
+              /*
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddDevis()),
+              );*/
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.home),
+            color: Color(0xFF186AA5),
+            iconSize: 50,
+            onPressed: () {
+              /*
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePageCommercial()),
+              );*/
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            color: Color(0xFF186AA5),
+            iconSize: 50,
+            onPressed: () {
+              /*
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );*/
+            },
+
+          )
+        ],
+
       ),
       body: SafeArea(
     child: Padding(
