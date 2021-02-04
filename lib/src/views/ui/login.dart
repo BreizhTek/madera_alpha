@@ -13,7 +13,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-
+  String _title = "Madera";
   String _email, _password;
 
   @override
@@ -26,7 +26,7 @@ class _LoginState extends State<Login> {
     appSetting(context);
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: reusableWidgets.header(isLargeScreen),
+        appBar: reusableWidgets.header(''),
         body: Form(
             key: _formKey,
             child: Container(
@@ -35,7 +35,7 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        child: ThemeText.title(isLargeScreen, "Madera"),
+                        child: ThemeText.title(_title),
                       ),
                       subTitle("Connexion"),
                       textField(
@@ -47,8 +47,7 @@ class _LoginState extends State<Login> {
                           "Vous devez renseigner un mot de passe",
                           true),
                       button("CONNEXION"),
-                      ThemeText.simpleText(
-                          isLargeScreen, "Problème de connexion ?")
+                      ThemeText.simpleText("Problème de connexion ?")
                     ]),
               ),
             )));
@@ -80,7 +79,7 @@ class _LoginState extends State<Login> {
           bottom: BorderSide(width: 3.0, color: mainBlue),
         ),
       ),
-      child: ThemeText.subTitle(isLargeScreen, text),
+      child: ThemeText.subTitle(text),
     );
   }
 
