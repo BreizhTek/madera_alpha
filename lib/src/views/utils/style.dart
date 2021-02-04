@@ -5,8 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 const Color mainBlue = Color(0xFF186AA5);
 const Color mainWhite = Color(0xFFFFFFFF);
 
-
-
 class ThemeText {
   static Text title(bool isLargeScreen, String text){
     return Text(
