@@ -9,8 +9,8 @@ import 'package:madera_prototype/src/buisness_logic/utils/configuration.dart';
 class Commercial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: AsyncStatefulWidget(),
+    return Scaffold(
+        body: AsyncStatefulWidget(),
     );
   }
 }
@@ -70,9 +70,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: mainBlue),
         onPressed: () {
-          if(action != false) {
-            action();
-          }
+          Navigator.pushNamed(context, "/commercial_1");
         },
         child: FittedBox(
           fit: BoxFit.fitWidth,
@@ -82,17 +80,13 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
     );
   }
 
-  void goToStepOne() {
-    Navigator.pushNamed(context, "/commercial_1");
-  }
-
   List<Widget> rowQuotes(){
       List<Widget> rows = [];
       rows.add(
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              button("Nouveau devis", context, goToStepOne),
+              button("Nouveau devis", context, false),
               button("Nouveau client", context, false),
             ]
           )
