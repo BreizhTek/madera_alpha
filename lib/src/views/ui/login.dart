@@ -13,6 +13,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   String _email, _password;
 
@@ -26,6 +27,7 @@ class _LoginState extends State<Login> {
     appSetting(context);
     return Scaffold(
         backgroundColor: Colors.white,
+        key: _scaffoldKey,
         appBar: reusableWidgets.header(isLargeScreen),
         body: Form(
             key: _formKey,
@@ -57,16 +59,22 @@ class _LoginState extends State<Login> {
   void _submit() {
     final form = _formKey.currentState;
     if (form.validate()) {
-      Api.connect(_email, _password);
+      this.login();
     }
   }
 
-  void test() async {
-    await Api.connect(_email, _password);
-    List<ContentType> quotes = await Api.getQuotes();
-    for(var i = 0; i < quotes.length; i++){
-      print(quotes[i].data);
+  void login() async {
+    bool success = await Api.connect(_email, _password);
+    if (success) {
+      Navigator.pushNamed(context, "/commercial");
+    } else {
+      this._showToast(context);
     }
+  }
+
+  void _showToast(BuildContext context) {
+    final snackBar = SnackBar(content: Text('Email ou mot de passe faux !'));
+    _scaffoldKey.currentState.showSnackBar(snackBar);
   }
 
   Container subTitle(String text) {

@@ -7,10 +7,15 @@ class Api  {
 
   static Strapi _strapiClient;
 
-  static Future<void> connect(String user, String password) async {
+  static Future<bool> connect(String user, String password) async {
     Api._strapiClient = Strapi.newClient();
-    final authData = await _strapiClient.http.post('https://madera.telougat.space/auth/local',  data: {'identifier': user, 'password': password});
-    Api._strapiClient.initialize(base_url: 'https://madera.telougat.space', token: authData.data["jwt"].toString());
+    try {
+      final authData = await _strapiClient.http.post('https://madera.telougat.space/auth/local',  data: {'identifier': user, 'password': password});
+      Api._strapiClient.initialize(base_url: 'https://madera.telougat.space', token: authData.data["jwt"].toString());
+      return true;
+    } catch (DioError) {
+      return false;
+    }
   }
 
   static Future<List<ContentType>> getClients() async {

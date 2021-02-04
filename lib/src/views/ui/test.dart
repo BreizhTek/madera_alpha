@@ -35,17 +35,12 @@ class _testState extends State<Test> {
     // print(jsonDecode(response.body) );
     print("*************** TOKEN : ********");
     final token = await strapiClient.http.post('http://telougat.space:1337/auth/local',  data: {'identifier': 'Timothé', 'password': 'Azerty123'});
-
     // final token =  http.post('http://telougat.space:1337/auth/local',  identifier: 'reader@strapi.io',  );
-
     print(token);
-
     // strapiClient.initialize(token: token);
     // strapiClient.initialize(token: 'token');
    //  final json = await strapiClient.http.get('http://telougat.space:1337/Users/1');
    // print("------------- TEST : --------------");
    // print(json);
-
-
   }
 }
