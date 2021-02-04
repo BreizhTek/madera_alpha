@@ -29,7 +29,6 @@ class _CommercialStep1State extends State<CommercialStep1> {
         body: Form(
           child: Center(
             child: Column(
-
               children: [
                 if(isLargeScreen) dividerBlock(50),
                 // divider(4, 4),
@@ -40,7 +39,6 @@ class _CommercialStep1State extends State<CommercialStep1> {
                       ? MediaQuery.of(context).size.width / 1
                       : MediaQuery.of(context).size.width / 0.8,
                   child: Column(
-
                     children: [
                       if(isLargeScreen) dividerBlock(50),
                       subTitle("Etape 1 - Information chantier/projet"),

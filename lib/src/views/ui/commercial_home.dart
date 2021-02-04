@@ -60,7 +60,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
     throw UnimplementedError();
   }
 
-  Container button(String text, context) {
+  Container button(String text, context, action) {
     return Container(
       width: MediaQuery
           .of(context)
@@ -69,7 +69,11 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
       margin: new EdgeInsets.symmetric(vertical: 15.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: mainBlue),
-        onPressed: () {},
+        onPressed: () {
+          if(action != false) {
+            action();
+          }
+        },
         child: FittedBox(
           fit: BoxFit.fitWidth,
           child: Text(text),
@@ -78,6 +82,9 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
     );
   }
 
+  void goToStepOne() {
+    Navigator.pushNamed(context, "/commercial_1");
+  }
 
   List<Widget> rowQuotes(){
       List<Widget> rows = [];
@@ -85,8 +92,8 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              button("Nouveau devis", context),
-              button("Nouveau client", context),
+              button("Nouveau devis", context, goToStepOne),
+              button("Nouveau client", context, false),
             ]
           )
       );
@@ -107,7 +114,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
                   IconButton(
                     icon: Icon(Icons.search),
                     color: Colors.blue[800],
-                    onPressed: () {},//quote.Id
+                    onPressed: () {},
                   ),
                   Text(_quotesList[i].data['Ammount'].toString()),
                   Text(_quotesList[i].data['Create']),
