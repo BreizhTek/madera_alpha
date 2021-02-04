@@ -1,5 +1,4 @@
 import 'package:dart_strapi/dart_strapi.dart';
-import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:madera_prototype/src/buisness_logic/services/api_services/api.dart';
@@ -25,7 +24,7 @@ class _ClientsList extends State<ClientsList> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: reusableWidgets.appBarList(),
+      // appBar: reusableWidgets.header(''),
       bottomNavigationBar: reusableWidgets.bottomBar(),
       body: SafeArea(
           child: FutureBuilder<bool>(
@@ -33,17 +32,12 @@ class _ClientsList extends State<ClientsList> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            children: rowClients(),
-                          ),
-                        ]
+                        children: rowClients(),
                       )
-                      // child: SearchBar(),
-                      );
+                    // child: SearchBar(),
+                  );
                 } else {
                   return Container();
                 }
@@ -69,14 +63,7 @@ class _ClientsList extends State<ClientsList> {
   List<Widget> rowClients() {
     List<Widget> rows = [];
 
-      rows.add(
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          // child: SearchBar(),
-        )
-       );
     for (var i = 0; i < _clientsList.length; i++) {
-
       rows.add(Container(
           decoration: BoxDecoration(
               color: Colors.white,
@@ -129,13 +116,6 @@ class _ClientsList extends State<ClientsList> {
                 ]),
           )));
     }
-
-
-
-    // rows.add(
-    //
-    // );
-
     return rows;
   }
 

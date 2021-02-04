@@ -42,4 +42,17 @@ class reusableWidgets {
      //onTap: _onItemTapped,
    );
  }
+
+  static appBarList(){
+    return AppBar(
+      elevation: 0,
+      leading: IconButton(
+        color: mainWhite,
+        iconSize: isLargeScreen ? 45 : 30,
+        icon: Icon(Icons.arrow_back_ios_sharp),
+        onPressed: () {},
+      ),
+      backgroundColor: mainBlue,
+    );
+  }
 }

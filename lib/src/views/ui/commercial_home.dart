@@ -91,7 +91,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
             ]
           )
       );
-      rows.add(rowHeadQuotes());
+      //rows.add(rowHeadQuotes());
       rows.add(
           Row(
               children: <Widget>[
@@ -101,22 +101,69 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
           )
       );
       for(var i=0; i<_quotesList.length; i++) {
-        rows.add(
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.search),
-                    color: Colors.blue[800],
-                    onPressed: () {},
-                  ),
-                  Text(_quotesList[i].data['Ammount'].toString()),
-                  Text(_quotesList[i].data['Create']),
-                  Text(_quotesList[i].data['client']['Firstname'] +' ' +_quotesList[i].data['client']['Lastname'] ),
-                  Text(_quotesList[i].data['status']['Designation']),
-                ]
-            )
-        );
+        rows.add(Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10)
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  )]),
+            margin: EdgeInsets.only(top: 10.0),
+            width: isLargeScreen
+                ? MediaQuery.of(context).size.width / 1
+                : MediaQuery.of(context).size.width / 1,
+            child: OutlineButton(
+              onPressed: () {},
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        icon: Icon(Icons.remove_red_eye),
+                        color: mainBlue,
+                      ),
+                    ),
+                    Container(
+                      width: isLargeScreen
+                          ? MediaQuery.of(context).size.width / 5
+                          : MediaQuery.of(context).size.width / 3,
+                      child: simpleText(
+                          _quotesList[i].data['Ammount'].toString(), 15),
+                    ),
+                    Container(
+                      width: isLargeScreen
+                          ? MediaQuery.of(context).size.width / 5
+                          : MediaQuery.of(context).size.width / 3,
+                      child: simpleText(
+                          _quotesList[i].data['Create'].toString(), 15),
+                    ),
+                    Container(
+                      width: isLargeScreen
+                          ? MediaQuery.of(context).size.width / 5
+                          : MediaQuery.of(context).size.width / 3,
+                      child: simpleText(
+                          _quotesList[i].data['client']['Firstname'] + ' ' +_quotesList[i].data['client']['Lastname'] , 15),
+                    ),
+                    Container(
+                      width: isLargeScreen
+                          ? MediaQuery.of(context).size.width / 5
+                          : MediaQuery.of(context).size.width / 3,
+                      child: simpleText(
+                          _quotesList[i].data['status']['Designation'], 15),
+                    ),
+
+                  ]),
+            )));
       }
       return rows;
   }
@@ -132,6 +179,17 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
           Text('Status'),
         ]
     );
+  }
+
+
+  Text simpleText(String text, double size) {
+    return Text(text,
+        textAlign: TextAlign.center,
+        style: GoogleFonts.montserrat(
+          fontSize: isLargeScreen ? size : size - 3,
+          color: mainBlue,
+          fontWeight: FontWeight.w400,
+        ));
   }
 
 }
