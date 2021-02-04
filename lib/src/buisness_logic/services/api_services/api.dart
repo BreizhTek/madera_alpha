@@ -22,7 +22,6 @@ class Api  {
 
     final _strapiClient = Strapi.newClient();
     final token = await _strapiClient.http.post('https://madera.telougat.space/auth/local',  data: {'identifier': user, 'password': password});
-    print(token);
 
   }
 }
