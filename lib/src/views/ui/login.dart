@@ -41,12 +41,12 @@ class _LoginState extends State<Login> {
                       textField(
                           "Email",
                           "Vous devez renseigner une adresse Email",
-                          _email,
+                          "email",
                           false),
                       textField(
                           "Mot de passe",
                           "Vous devez renseigner un mot de passe",
-                          _password,
+                          "password",
                           true),
                       button("CONNEXION"),
                       ThemeText.simpleText(
@@ -83,7 +83,7 @@ class _LoginState extends State<Login> {
   }
 
   Container textField(
-      String hintText, String textEmptyMessage, String textInput, bool obscureText) {
+      String hintText, String textEmptyMessage, String field, bool obscureText) {
     return Container(
       margin: new EdgeInsets.symmetric(vertical: 15.0),
       width: isLargeScreen
@@ -100,7 +100,13 @@ class _LoginState extends State<Login> {
           border: InputBorder.none,
           contentPadding: EdgeInsets.all(15.0),
         ),
-        onChanged: (value) => textInput = value,
+        onChanged: (value) {
+          if(field == "email") {
+            this._email = value;
+          } else {
+            this._password = value;
+          }
+        },
         validator: (value) {
           if (value.isEmpty) {
             return textEmptyMessage;

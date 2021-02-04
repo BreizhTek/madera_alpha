@@ -21,7 +21,7 @@ class Api  {
   static Future Initialize(String user, String password) async {
 
     final _strapiClient = Strapi.newClient();
-    final token = await _strapiClient.http.post('http://telougat.space:1337/auth/local',  data: {'identifier': user, 'password': password});
+    final token = await _strapiClient.http.post('https://madera.telougat.space/auth/local',  data: {'identifier': user, 'password': password});
     print(token);
 
   }
