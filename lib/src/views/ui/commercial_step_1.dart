@@ -25,6 +25,7 @@ class _CommercialStep1State extends State<CommercialStep1> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: reusableWidgets.header(_title),
+        bottomNavigationBar: reusableWidgets.bottomBar(),
         body: Form(
           child: Center(
             child: Column(

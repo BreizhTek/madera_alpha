@@ -34,7 +34,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: reusableWidgets.header(isLargeScreen),
+      appBar: reusableWidgets.header(''),
 
       body: SafeArea(
         child: FutureBuilder<bool> (

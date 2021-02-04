@@ -18,4 +18,28 @@ class reusableWidgets {
       title: ThemeText.appBarTitle(title),
     );
   }
+
+ static bottomBar(){
+   return BottomNavigationBar(
+     backgroundColor: Colors.white,
+     items: const <BottomNavigationBarItem>[
+       BottomNavigationBarItem(
+         icon: Icon(Icons.file_copy),
+         label: '',
+       ),
+       BottomNavigationBarItem(
+         icon: Icon(Icons.home),
+         label: '',
+       ),
+       BottomNavigationBarItem(
+         icon: Icon(Icons.exit_to_app),
+         label: '',
+       ),
+     ],
+     //currentIndex: _selectedIndex,
+     selectedItemColor: mainBlue,
+     iconSize: isLargeScreen ? 50 : 30,
+     //onTap: _onItemTapped,
+   );
+ }
 }
