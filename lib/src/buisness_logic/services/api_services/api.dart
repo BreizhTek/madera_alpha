@@ -23,6 +23,18 @@ class Api  {
     return clients;
   }
 
+  static void createClient() async {
+    Map<String, dynamic> clientInfos = {
+      "Firstname": "LeTest",
+      "Lastname": "LeTest",
+      "Addresse": "Le mans",
+      "Phone": 0524854745
+    };
+    print(clientInfos);
+    ContentType client = new ContentType("clients", clientInfos);
+    print(await Api._strapiClient.create(client));
+  }
+
   static Future<ContentType> getClient(String id) async {
     ContentType client = await Api._strapiClient.findOne("clients", id);
     return client;

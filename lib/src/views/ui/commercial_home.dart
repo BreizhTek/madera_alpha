@@ -26,7 +26,6 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
   List<ContentType> _quotesList;
 
   Future<bool> getQuotesList () async {
-    await Api.connect("test", "test123");
     this._quotesList = await Api.getQuotes();
     return true;
   }
@@ -40,13 +39,18 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
         child: FutureBuilder<bool> (
           future: this.getQuotesList(),
           builder: (context, snapshot) {
-            return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
+            if (snapshot.hasData) {
+              return Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
                     children: rowQuotes(),
-                )
-              // child: SearchBar(),
-            );
+                  )
+                // child: SearchBar(),
+              );
+            } else {
+              return Container(
+              );
+            }
           }
         )
       ),
