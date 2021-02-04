@@ -6,8 +6,24 @@ import 'package:madera_prototype/src/views/components/reusable_widgets.dart';
 import 'package:madera_prototype/src/views/utils/style.dart';
 import 'package:madera_prototype/src/buisness_logic/utils/configuration.dart';
 
-class Commercial extends StatelessWidget {
-  List listQuotes  = [];
+class Commercial extends StatefulWidget {
+  @override
+  _Commercial createState() => _Commercial();
+}
+
+class _Commercial extends StatelessWidget {
+
+  List<ContentType> listQuotes;
+
+  @override
+  void initState(){
+    asyncMethod();
+  }
+
+  void asyncMethod() async{
+    listQuotes = await getAllQuotes();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -16,7 +32,10 @@ class Commercial extends StatelessWidget {
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
+          child: FutureBuilder<String>(
+            future:  Commercial,
+            builder: (BuildContext context, AsyncSnapshot),
+          ) Column(
               children: <Widget>[
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -87,20 +106,22 @@ class Commercial extends StatelessWidget {
 
 
   Row rowQuotes(quote){
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            color: Colors.blue[800],
-            onPressed: () {},//quote.Id
-          ),
-          Text(quote[0]),
-          Text('01/04/2020'),
-          Text('John Smith'),
-          Text('Payement en attente'),
-        ]
-    );
+    for(var i = 0; i < quote.length; i++){
+      return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              color: Colors.blue[800],
+              onPressed: () {},//quote.Id
+            ),
+            Text(quote[i].data['Ammount']),
+            Text(quote[i].data['Create']),
+            Text(quote[i].data['client']['Firstname'] +' ' +quote[i].data['client']['Lastname'] ),
+            Text(quote[i].data['status']['Designation']),
+          ]
+      );
+    }
   }
 
   Row rowHeadQuotes(){
@@ -114,6 +135,13 @@ class Commercial extends StatelessWidget {
           Text('Status'),
         ]
     );
+  }
+
+
+  Future<List<ContentType>> getAllQuotes() async {
+    await Api.connect('test', 'test123');
+    //this.listQuotes = await Api.getQuotes();
+    return await Api.getQuotes();
   }
 
 }
