@@ -1,12 +1,13 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:madera_prototype/src/buisness_logic/utils/configuration.dart';
 
 const Color mainBlue = Color(0xFF186AA5);
 const Color mainWhite = Color(0xFFFFFFFF);
 
 class ThemeText {
-  static Text title(bool isLargeScreen, String text){
+  static Text title(String text){
     return Text(
         text,
         textAlign: TextAlign.center,
@@ -17,7 +18,7 @@ class ThemeText {
     ));
   }
 
-  static Text subTitle(bool isLargeScreen, String text){
+  static Text subTitle(String text){
     return Text(
         text,
         textAlign: TextAlign.center,
@@ -28,7 +29,7 @@ class ThemeText {
         ));
   }
 
-  static Text simpleText(bool isLargeScreen, String text){
+  static Text simpleText(String text){
     return Text(
         text,
         textAlign: TextAlign.center,
@@ -39,6 +40,16 @@ class ThemeText {
         ));
   }
 
+  static Text appBarTitle(String text){
+    return Text(
+        text,
+        textAlign: TextAlign.center,
+        style: GoogleFonts.montserrat(
+          fontSize: isLargeScreen ? 30 : 18,
+          fontWeight: FontWeight.w500,
+          color: mainBlue,
+        ));
 
+  }
 
 }
