@@ -6,22 +6,29 @@ import 'package:madera_prototype/src/views/components/reusable_widgets.dart';
 import 'package:madera_prototype/src/views/utils/style.dart';
 import 'package:madera_prototype/src/buisness_logic/utils/configuration.dart';
 
-class Commercial extends StatefulWidget {
+class Commercial extends StatelessWidget {
   @override
-  _Commercial createState() => _Commercial();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: AsyncStatefulWidget(),
+    );
+  }
 }
 
-class _Commercial extends StatelessWidget {
-
-  List<ContentType> listQuotes;
+class AsyncStatefulWidget extends StatefulWidget {
+  AsyncStatefulWidget({Key key}) : super(key: key);
 
   @override
-  void initState(){
-    asyncMethod();
-  }
+  _AsyncStatefulWidget createState() => _AsyncStatefulWidget();
+}
 
-  void asyncMethod() async{
-    listQuotes = await getAllQuotes();
+class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
+  List<ContentType> _quotesList;
+
+  Future<bool> getQuotesList () async {
+    await Api.connect("test", "test123");
+    this._quotesList = await Api.getQuotes();
+    return true;
   }
 
   @override
@@ -30,34 +37,18 @@ class _Commercial extends StatelessWidget {
       appBar: reusableWidgets.header(isLargeScreen),
 
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: FutureBuilder<String>(
-            future:  Commercial,
-            builder: (BuildContext context, AsyncSnapshot),
-          ) Column(
-              children: <Widget>[
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      button("Nouveau devis", context),
-                      button("Nouveau client", context),
-                    ]
-                  ),
-                rowHeadQuotes(),
-                Row(
-                    children: <Widget>[
-                      Text(''),
-                      Divider(color: Colors.blue[800]),
-                    ]
-                ),
-                // Generate ListQuotes in view
-                for ( var quote in listQuotes ) rowQuotes(quote),
-              ]
-
-            )
-        // child: SearchBar(),
-        ),
+        child: FutureBuilder<bool> (
+          future: this.getQuotesList(),
+          builder: (context, snapshot) {
+            return Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                    children: rowQuotes(),
+                )
+              // child: SearchBar(),
+            );
+          }
+        )
       ),
 
       //Partie NavigationBar (bas de l'écran)
@@ -105,23 +96,45 @@ class _Commercial extends StatelessWidget {
   }
 
 
-  Row rowQuotes(quote){
-    for(var i = 0; i < quote.length; i++){
-      return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              color: Colors.blue[800],
-              onPressed: () {},//quote.Id
-            ),
-            Text(quote[i].data['Ammount']),
-            Text(quote[i].data['Create']),
-            Text(quote[i].data['client']['Firstname'] +' ' +quote[i].data['client']['Lastname'] ),
-            Text(quote[i].data['status']['Designation']),
-          ]
+  List<Widget> rowQuotes(){
+      List<Widget> rows = [];
+      rows.add(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              button("Nouveau devis", context),
+              button("Nouveau client", context),
+            ]
+          )
       );
-    }
+      rows.add(rowHeadQuotes());
+      rows.add(
+          Row(
+              children: <Widget>[
+                Text(''),
+                Divider(color: Colors.blue[800]),
+              ]
+          )
+      );
+      for(var i=0; i<_quotesList.length; i++) {
+        rows.add(
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.search),
+                    color: Colors.blue[800],
+                    onPressed: () {},//quote.Id
+                  ),
+                  Text(_quotesList[i].data['Ammount'].toString()),
+                  Text(_quotesList[i].data['Create']),
+                  Text(_quotesList[i].data['client']['Firstname'] +' ' +_quotesList[i].data['client']['Lastname'] ),
+                  Text(_quotesList[i].data['status']['Designation']),
+                ]
+            )
+        );
+      }
+      return rows;
   }
 
   Row rowHeadQuotes(){
@@ -135,13 +148,6 @@ class _Commercial extends StatelessWidget {
           Text('Status'),
         ]
     );
-  }
-
-
-  Future<List<ContentType>> getAllQuotes() async {
-    await Api.connect('test', 'test123');
-    //this.listQuotes = await Api.getQuotes();
-    return await Api.getQuotes();
   }
 
 }
