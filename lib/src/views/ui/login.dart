@@ -57,12 +57,19 @@ class _LoginState extends State<Login> {
   }
 
   void _submit() {
-    print( "test 1: ");
-    print(_email);
     final form = _formKey.currentState;
     // if (form.validate()) {
-         Api(_email, _password).getApi();
+         //Api.connect(_email, _password);
+         test();
     // }
+  }
+
+  void test() async {
+    await Api.connect(_email, _password);
+    List<ContentType> quotes = await Api.getQuotes();
+    for(var i = 0; i < quotes.length; i++){
+      print(quotes[i].data);
+    }
   }
 
   Container subTitle(String text) {
