@@ -12,7 +12,7 @@ class Madera extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/commercial',
       routes: routes,
     );
   }
