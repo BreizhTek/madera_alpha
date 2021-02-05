@@ -49,10 +49,10 @@ class _CommercialStep1State extends State<CommercialStep1> {
                           children: [
                         textField("Vous devez renseigner un nom pour le devis",
                             "Nom du devis :"),
-                        listShow("Liste client", "Nouveau client"),
+                        listShow("Liste client", "Nouveau client", "/clients_list"),
                         textField("Vous devez renseigner une date pour le devis",
                             "Date devis"),
-                        listShow("Référence projet", "Nouveau projet"),
+                        listShow("Référence projet", "Nouveau projet", "/projects_list"),
                             if(isLargeScreen) dividerBlock(50),
                         buttons("Annuler", "Continuer"),
                       ]),
@@ -142,7 +142,7 @@ class _CommercialStep1State extends State<CommercialStep1> {
     );
   }
 
-  Center listShow(String listName, String buttonName) {
+  Center listShow(String listName, String buttonName, String routeName) {
     return Center(
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         Container(
@@ -174,9 +174,7 @@ class _CommercialStep1State extends State<CommercialStep1> {
               ),
               child: FlatButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => clientList()));
+                    Navigator.pushNamed(context, routeName);
                   },
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
