@@ -43,7 +43,7 @@ class reusableWidgets {
    );
  }
 
-  static appBarList(){
+  static appBarList(String title){
     return AppBar(
       elevation: 0,
       leading: IconButton(
@@ -53,6 +53,10 @@ class reusableWidgets {
         onPressed: () {},
       ),
       backgroundColor: mainBlue,
+      centerTitle: true,
+      title: ThemeText.appBarTitle2(title),
     );
   }
-}
+
+  }
+

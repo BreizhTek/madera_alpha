@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
   void login() async {
     bool success = await Api.connect(_email, _password);
     if (success) {
-      Navigator.pushNamed(context, "/commercial");
+      Navigator.pushNamed(context, "/projects_list");
     } else {
       this._showToast(context);
     }

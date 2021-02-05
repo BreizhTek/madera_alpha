@@ -52,4 +52,16 @@ class ThemeText {
 
   }
 
+  static Text appBarTitle2(String text){
+    return Text(
+        text,
+        textAlign: TextAlign.center,
+        style: GoogleFonts.montserrat(
+          fontSize: isLargeScreen ? 30 : 18,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+        ));
+
+  }
+
 }

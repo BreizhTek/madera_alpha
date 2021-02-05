@@ -25,7 +25,7 @@ class _ClientsList extends State<ClientsList> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: reusableWidgets.appBarList(),
+      appBar: reusableWidgets.appBarList("Clients existants"),
       bottomNavigationBar: reusableWidgets.bottomBar(),
       body: SafeArea(
           child: FutureBuilder<bool>(
@@ -72,7 +72,7 @@ class _ClientsList extends State<ClientsList> {
       rows.add(
         Container(
           width: isLargeScreen ? MediaQuery.of(context).size.width / 2.2 : MediaQuery.of(context).size.width / 1.2,
-          padding: isLargeScreen ? const EdgeInsets.symmetric(horizontal: 5, vertical: 10) : const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+          padding: isLargeScreen ? const EdgeInsets.symmetric(horizontal: 5, vertical: 30) : const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
           child: TextField(
             decoration: InputDecoration(
               contentPadding: isLargeScreen ? EdgeInsets.symmetric(horizontal: 5, vertical: 10) : EdgeInsets.symmetric(horizontal: 1, vertical: 10),

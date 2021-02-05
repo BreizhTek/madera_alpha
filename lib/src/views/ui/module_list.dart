@@ -24,7 +24,7 @@ class _ModulesList extends State<ModulesList> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: reusableWidgets.appBarList(),
+      appBar: reusableWidgets.appBarList("Module disponible"),
       bottomNavigationBar: reusableWidgets.bottomBar(),
       body: SafeArea(
           child: FutureBuilder<bool>(
@@ -70,6 +70,22 @@ class _ModulesList extends State<ModulesList> {
 
     rows.add(
         Container(
+          width: isLargeScreen ? MediaQuery.of(context).size.width / 2.2 : MediaQuery.of(context).size.width / 1.2,
+          padding: isLargeScreen ? const EdgeInsets.symmetric(horizontal: 5, vertical: 20) : const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
+          child: TextField(
+            decoration: InputDecoration(
+                contentPadding: isLargeScreen ? EdgeInsets.symmetric(horizontal: 5, vertical: 10) : EdgeInsets.symmetric(horizontal: 1, vertical: 10),
+                labelText: "Search",
+                hintText: "Search",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+          ),
+        )
+    );
+
+    rows.add(
+        Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           // child: SearchBar(),
         )
@@ -112,21 +128,21 @@ class _ModulesList extends State<ModulesList> {
                   Container(
                     width: isLargeScreen
                         ? MediaQuery.of(context).size.width / 5
-                        : MediaQuery.of(context).size.width / 3,
+                        : MediaQuery.of(context).size.width / 5,
                     child: simpleText(
                         _modulesList[i].data['Label'].toString(), 15),
                   ),
                   Container(
                     width: isLargeScreen
                         ? MediaQuery.of(context).size.width / 5
-                        : MediaQuery.of(context).size.width / 3,
+                        : MediaQuery.of(context).size.width / 5,
                     child: simpleText(
                         _modulesList[i].data['Height'].toString(), 15),
                   ),
                   Container(
                     width: isLargeScreen
                         ? MediaQuery.of(context).size.width / 5
-                        : MediaQuery.of(context).size.width / 3,
+                        : MediaQuery.of(context).size.width / 5,
                     child: simpleText(
                         _modulesList[i].data['Width'].toString(), 15),
                   ),
