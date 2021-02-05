@@ -5,12 +5,12 @@ import 'package:madera_prototype/src/views/components/reusable_widgets.dart';
 import 'package:madera_prototype/src/views/utils/style.dart';
 import 'package:madera_prototype/src/buisness_logic/utils/configuration.dart';
 
-class CommercialStep1 extends StatefulWidget {
+class CommercialStep2 extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _CommercialStep1State();
+  State<StatefulWidget> createState() => _CommercialStep2State();
 }
 
-class _CommercialStep1State extends State<CommercialStep1> {
+class _CommercialStep2State extends State<CommercialStep2> {
   String _title = "Création de devis";
   String _project;
 
@@ -32,7 +32,7 @@ class _CommercialStep1State extends State<CommercialStep1> {
               children: [
                 if(isLargeScreen) dividerBlock(50),
                 // divider(4, 4),
-                title("Information chantier/projet"),
+                title("Conception des porduits"),
                 divider(1.1, 4),
                 Container(
                   width: isLargeScreen
@@ -41,21 +41,20 @@ class _CommercialStep1State extends State<CommercialStep1> {
                   child: Column(
                     children: [
                       if(isLargeScreen) dividerBlock(50),
-                      subTitle("Etape 1 - Information chantier/projet"),
+                      subTitle("Etape 2 - Conception des produits"),
                       if(isLargeScreen) dividerBlock(100),
                       Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                        textField("Vous devez renseigner un nom pour le devis",
-                            "Nom du devis :"),
-                        listShow("Liste client", "Nouveau client"),
-                        textField("Vous devez renseigner une date pour le devis",
-                            "Date devis"),
-                        listShow("Référence projet", "Nouveau projet"),
+                            listShow("Liste de gammes", "/commercial/ranges"),
+                            listShow("Liste modèle d'une gamme", ""),
+                            listShow("Type de remplissage", ""),
+                            listShow("Finition", ""),
+                            listShow("Sélection coupe", ""),
                             if(isLargeScreen) dividerBlock(50),
-                        buttons("Annuler", "Continuer"),
-                      ]),
+                            buttons("Annuler", "Continuer"),
+                          ]),
                     ],
                   ),
                 ),
@@ -142,61 +141,51 @@ class _CommercialStep1State extends State<CommercialStep1> {
     );
   }
 
-  Center listShow(String listName, String buttonName) {
+  Center listShow(String listName, String routeName) {
     return Center(
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         Container(
             margin: EdgeInsets.only(top: 30.0, bottom: 5.0),
             width: isLargeScreen
-                ? MediaQuery.of(context).size.width / 1.5
+                ? MediaQuery.of(context).size.width * 0.8
                 : MediaQuery.of(context).size.width / 1.3,
             child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              height: isLargeScreen ? 38 : 38,
-              width: isLargeScreen
-                  ? MediaQuery.of(context).size.width / 2.5
-                  : MediaQuery.of(context).size.width / 2.3,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(5),
-                    topRight: Radius.circular(5),
-                    bottomLeft: Radius.circular(5),
-                    bottomRight: Radius.circular(5)),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 5,
-                      offset: Offset(0.0, 5)),
-                ],
-              ),
-              child: FlatButton(
-                onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => clientList()));
-                  },
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      simpleText(listName, true),
-                      Icon(Icons.arrow_drop_down_outlined)
-                    ]),
-              ),
-            ),
-            ButtonTheme(
-              child :ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: mainBlue),
-              onPressed: null,
-              child: FittedBox(
-                fit: BoxFit.fitWidth,
-                child: simpleText(buttonName, false),
-              )),
-            ),
-          ],
-        )),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 10,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          topRight: Radius.circular(5),
+                          bottomLeft: Radius.circular(5),
+                          bottomRight: Radius.circular(5)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 5,
+                            offset: Offset(0.0, 5)),
+                      ],
+                    ),
+                    child: FlatButton(
+                      onPressed: () {
+                        if(routeName.isNotEmpty) {
+                          Navigator.pushNamed(context, routeName);
+                        }
+                      },
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            simpleText(listName, true),
+                            Icon(Icons.arrow_drop_down_outlined)
+                          ]),
+                    ),
+                  ),
+                ),
+              ],
+            )),
       ]),
     );
   }
@@ -204,36 +193,34 @@ class _CommercialStep1State extends State<CommercialStep1> {
   Container buttons(String buttonText1, buttonText2) {
     return Container(
         width: isLargeScreen
-            ? MediaQuery.of(context).size.width / 1.4
+            ? MediaQuery.of(context).size.width * 0.8
             : MediaQuery.of(context).size.width / 1.2,
-      child: ButtonBar(
-      alignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        OutlineButton(
-            color: Colors.black54,
-            textColor: Colors.black54,
-            disabledTextColor: Colors.black,
-            padding: isLargeScreen ? EdgeInsets.only(top: 20.0 , bottom: 20, right: 50, left: 50) : EdgeInsets.only(top: 15.0 , bottom: 15, right: 20, left: 20),
-            child: Text(buttonText1),
-            onPressed: () {
-              Navigator.pushNamed(context, "/commercial");
-            },
-            shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(13.0))
-        ),
-        FlatButton(
-          color: mainBlue,
-          textColor: Colors.white,
-          disabledColor: Colors.grey,
-          disabledTextColor: Colors.black,
-          padding: isLargeScreen ? EdgeInsets.only(top: 20.0 , bottom: 20, right: 50, left: 50) : EdgeInsets.only(top: 15.0 , bottom: 15, right: 20, left: 20),
-          child: Text(buttonText2),
-          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(13.0)),
-          onPressed: () {
-            Navigator.pushNamed(context, "/commercial_2");
-          },
-        ),
-      ],
-    ));
+        child: ButtonBar(
+          alignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            OutlineButton(
+                color: Colors.black54,
+                textColor: Colors.black54,
+                disabledTextColor: Colors.black,
+                padding: isLargeScreen ? EdgeInsets.only(top: 20.0 , bottom: 20, right: 50, left: 50) : EdgeInsets.only(top: 15.0 , bottom: 15, right: 20, left: 20),
+                child: Text(buttonText1),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/commercial_1");
+                },
+                shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(13.0))
+            ),
+            FlatButton(
+              color: mainBlue,
+              textColor: Colors.white,
+              disabledColor: Colors.grey,
+              disabledTextColor: Colors.black,
+              padding: isLargeScreen ? EdgeInsets.only(top: 20.0 , bottom: 20, right: 50, left: 50) : EdgeInsets.only(top: 15.0 , bottom: 15, right: 20, left: 20),
+              child: Text(buttonText2),
+              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(13.0)),
+              onPressed: () {},
+            ),
+          ],
+        ));
   }
 
   Container title(String text) {
