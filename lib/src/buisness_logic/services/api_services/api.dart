@@ -44,6 +44,11 @@ class Api  {
     return projects;
   }
 
+  static Future<List<ContentType>> getRanges() async {
+    List<ContentType> ranges = await Api._strapiClient.find("ranges");
+    return ranges;
+  }
+
   static Future<ContentType> getProject(String id) async {
     ContentType project = await Api._strapiClient.findOne("projects", id);
     return project;
