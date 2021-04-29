@@ -22,7 +22,7 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/clients_list": (BuildContext context) => ClientsList(),
   "/projects_list": (BuildContext context) => ProjectsList(),
   "/modules_list": (BuildContext context) => ModulesList(),
-  "/commercial/add/client": (BuildContext context) => Commercial(),
+  "/commercial_customer": (BuildContext context) => CommercialCustomer(),
 
 
   "/commercial/ranges": (BuildContext context) => Ranges(),
