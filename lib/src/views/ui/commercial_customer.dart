@@ -12,10 +12,29 @@ class CommercialCustomer extends StatefulWidget {
 
 class CommercialCustomerState extends State<CommercialCustomer> {
   String _title = "Création client";
+  final _formKey = GlobalKey<FormState>();
+  String _last_name, _first_name, _email, _phone, _adress, _postalcode, _city;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  void _submit() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      this.insert();
+    }
+  }
+
+  void insert() async {
+    print(_last_name);
+    print(_first_name);
+    print(_email);
+    print(_phone);
+    print(_adress);
+    print(_postalcode);
+    print(_city);
   }
 
   @override
@@ -26,35 +45,53 @@ class CommercialCustomerState extends State<CommercialCustomer> {
         appBar: reusableWidgets.header(_title),
         bottomNavigationBar: reusableWidgets.bottomBar(),
         body: Form(
+          key: _formKey,
           child: Center(
             child: Column(
               children: [
-                if(isLargeScreen) dividerBlock(50),
                 Container(
                   width: isLargeScreen
                       ? MediaQuery.of(context).size.width / 1
                       : MediaQuery.of(context).size.width / 0.8,
                   child: Column(
                     children: [
-                      if(isLargeScreen) dividerBlock(100),
                       Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            textField("Vous devez renseigner un nom",
+                            textField(
+                                "Nom",
+                                "Vous devez renseigner un nom",
                                 "Nom :"),
-                            textField("Vous devez renseigner un prénom",
+                            textField(
+                                "Prénom",
+                                "Vous devez renseigner un prénom",
                                 "Prénom :"),
-                            textField("Vous devez renseigner un email",
+                            textField(
+                                "Email",
+                                "Vous devez renseigner un email",
                                 "Email :"),
-                            textField("Vous devez renseigner un téléphone",
+                            textField(
+                                "Téléphone",
+                                "Vous devez renseigner un téléphone",
                                 "Téléphone :"),
-                            textField("Vous devez renseigner une adresse",
+                            textField(
+                                "Adresse",
+                                "Vous devez renseigner une adresse",
                                 "Adresse :"),
-                            textField("Vous devez renseigner un code postale",
+                            textField(
+                              "Code postale",
+                                "Vous devez renseigner un code postale",
                                 "Code postale :"),
-                            textField("Vous devez renseigner une ville",
+                            textField(
+                                "Ville",
+                                "Vous devez renseigner une ville",
                                 "Ville :"),
+                            Column(children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 30.0, bottom: 3.0),
+                              )
+                            ]),
                             if(isLargeScreen) dividerBlock(50),
                             buttons("Annuler", "Enregistrer"),
                           ]),
@@ -67,7 +104,7 @@ class CommercialCustomerState extends State<CommercialCustomer> {
         ));
   }
 
-  Column textField(String textEmptyMessage, String libel) {
+  Column textField(String hintText, String textEmptyMessage, String libel) {
     return Column(children: [
       Container(
           margin: EdgeInsets.only(top: 30.0, bottom: 3.0),
@@ -86,10 +123,29 @@ class CommercialCustomerState extends State<CommercialCustomer> {
           enableSuggestions: true,
           autocorrect: false,
           decoration: InputDecoration(
+            // border: OutlineInputBorder(),
+            hintText: hintText,
+            hintStyle: TextStyle(color: Color(0xFF73A1C2)),
             border: InputBorder.none,
             contentPadding: EdgeInsets.all(15.0),
           ),
-          onChanged: (value) {},
+          onChanged: (value) {
+            if (hintText == "Nom") {
+              this._last_name = value;
+            } else if (hintText == "Prénom") {
+              this._first_name = value;
+            } else if (hintText == "Email") {
+              this._email = value;
+            } else if (hintText == "Téléphone") {
+              this._phone = value;
+            } else if (hintText == "Adresse") {
+              this._adress = value;
+            } else if (hintText == "Code postal") {
+              this._postalcode = value;
+            } else if (hintText == "Ville") {
+              this._city = value;
+            }
+          },
           validator: (value) {
             if (value.isEmpty) {
               return textEmptyMessage;
@@ -97,6 +153,7 @@ class CommercialCustomerState extends State<CommercialCustomer> {
             return null;
           },
         ),
+
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -129,7 +186,9 @@ class CommercialCustomerState extends State<CommercialCustomer> {
                 disabledTextColor: Colors.black,
                 padding: isLargeScreen ? EdgeInsets.only(top: 20.0 , bottom: 20, right: 50, left: 50) : EdgeInsets.only(top: 15.0 , bottom: 15, right: 20, left: 20),
                 child: Text(buttonText1),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, "/commercial");
+                },
                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(13.0))
             ),
             FlatButton(
@@ -140,7 +199,7 @@ class CommercialCustomerState extends State<CommercialCustomer> {
               padding: isLargeScreen ? EdgeInsets.only(top: 20.0 , bottom: 20, right: 50, left: 50) : EdgeInsets.only(top: 15.0 , bottom: 15, right: 20, left: 20),
               child: Text(buttonText2),
               shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(13.0)),
-              onPressed: () {},
+              onPressed: _submit,
             ),
           ],
         ));
