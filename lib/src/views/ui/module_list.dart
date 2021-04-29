@@ -6,35 +6,40 @@ import 'package:madera_prototype/src/buisness_logic/utils/configuration.dart';
 import 'package:madera_prototype/src/views/components/reusable_widgets.dart';
 import 'package:madera_prototype/src/views/utils/style.dart';
 
-class ProjectsList extends StatefulWidget {
-  ProjectsList({Key key}) : super(key: key);
+class ModulesList extends StatefulWidget {
+  ModulesList({Key key}) : super(key: key);
 
   @override
-  _ProjectsList createState() => _ProjectsList();
+  _ModulesList createState() => _ModulesList();
 }
 
-class _ProjectsList extends State<ProjectsList> {
-  List<ContentType> _projectsList;
+class _ModulesList extends State<ModulesList> {
+  List<ContentType> _modulesList;
 
-  Future<bool> getProjectList() async {
-    this._projectsList = await Api.getClients();
+  Future<bool> getClientsList() async {
+    this._modulesList = await Api.getClients();
     return true;
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: reusableWidgets.appBarList("Projets existants"),
+      appBar: reusableWidgets.appBarList("Module disponible"),
       bottomNavigationBar: reusableWidgets.bottomBar(),
       body: SafeArea(
           child: FutureBuilder<bool>(
-              future: this.getProjectList(),
+              future: this.getClientsList(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: Column(
-                        children: rowClients(),
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Column(
+                              children: rowClients(),
+                            ),
+                          ]
                       )
                     // child: SearchBar(),
                   );
@@ -66,7 +71,7 @@ class _ProjectsList extends State<ProjectsList> {
     rows.add(
         Container(
           width: isLargeScreen ? MediaQuery.of(context).size.width / 2.2 : MediaQuery.of(context).size.width / 1.2,
-          padding: isLargeScreen ? const EdgeInsets.symmetric(horizontal: 5, vertical: 30) : const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+          padding: isLargeScreen ? const EdgeInsets.symmetric(horizontal: 5, vertical: 20) : const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
           child: TextField(
             decoration: InputDecoration(
                 contentPadding: isLargeScreen ? EdgeInsets.symmetric(horizontal: 5, vertical: 10) : EdgeInsets.symmetric(horizontal: 1, vertical: 10),
@@ -79,7 +84,14 @@ class _ProjectsList extends State<ProjectsList> {
         )
     );
 
-    for (var i = 0; i < _projectsList.length; i++) {
+    rows.add(
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          // child: SearchBar(),
+        )
+    );
+    for (var i = 0; i < _modulesList.length; i++) {
+
       rows.add(Container(
           decoration: BoxDecoration(
               color: Colors.white,
@@ -118,28 +130,31 @@ class _ProjectsList extends State<ProjectsList> {
                         ? MediaQuery.of(context).size.width / 5
                         : MediaQuery.of(context).size.width / 5,
                     child: simpleText(
-                        _projectsList[i].data['Name'].toString(), 15),
+                        _modulesList[i].data['Label'].toString(), 15),
                   ),
                   Container(
                     width: isLargeScreen
                         ? MediaQuery.of(context).size.width / 5
                         : MediaQuery.of(context).size.width / 5,
                     child: simpleText(
-                        _projectsList[i].data['Reference'].toString(), 15),
+                        _modulesList[i].data['Height'].toString(), 15),
                   ),
                   Container(
                     width: isLargeScreen
                         ? MediaQuery.of(context).size.width / 5
                         : MediaQuery.of(context).size.width / 5,
                     child: simpleText(
-                        _projectsList[i].data['Date'].toString(), 15),
+                        _modulesList[i].data['Width'].toString(), 15),
                   ),
 
                 ]),
           )));
     }
+
+
     return rows;
   }
+
   Text simpleText(String text, double size) {
     return Text(text,
         textAlign: TextAlign.center,

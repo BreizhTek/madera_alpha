@@ -1,11 +1,11 @@
 import 'package:dart_strapi/dart_strapi.dart';
-import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:madera_prototype/src/buisness_logic/services/api_services/api.dart';
 import 'package:madera_prototype/src/buisness_logic/utils/configuration.dart';
 import 'package:madera_prototype/src/views/components/reusable_widgets.dart';
 import 'package:madera_prototype/src/views/utils/style.dart';
+import 'package:flutter/foundation.dart';
 
 class ClientsList extends StatefulWidget {
   ClientsList({Key key}) : super(key: key);
@@ -25,7 +25,7 @@ class _ClientsList extends State<ClientsList> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: reusableWidgets.appBarList(),
+      appBar: reusableWidgets.appBarList("Clients existants"),
       bottomNavigationBar: reusableWidgets.bottomBar(),
       body: SafeArea(
           child: FutureBuilder<bool>(
@@ -71,8 +71,17 @@ class _ClientsList extends State<ClientsList> {
 
       rows.add(
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          // child: SearchBar(),
+          width: isLargeScreen ? MediaQuery.of(context).size.width / 2.2 : MediaQuery.of(context).size.width / 1.2,
+          padding: isLargeScreen ? const EdgeInsets.symmetric(horizontal: 5, vertical: 30) : const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+          child: TextField(
+            decoration: InputDecoration(
+              contentPadding: isLargeScreen ? EdgeInsets.symmetric(horizontal: 5, vertical: 10) : EdgeInsets.symmetric(horizontal: 1, vertical: 10),
+                labelText: "Search",
+                hintText: "Search",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                 borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+          ),
         )
        );
     for (var i = 0; i < _clientsList.length; i++) {
