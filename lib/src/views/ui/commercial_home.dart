@@ -138,28 +138,28 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
                           ? MediaQuery.of(context).size.width / 5
                           : MediaQuery.of(context).size.width / 3,
                       child: simpleText(
-                          _quotesList[i].data['Ammount'].toString(), 15),
+                          _quotesList[i].data['ammount'].toString(), 15),
                     ),
                     Container(
                       width: isLargeScreen
                           ? MediaQuery.of(context).size.width / 5
                           : MediaQuery.of(context).size.width / 3,
                       child: simpleText(
-                          _quotesList[i].data['Create'].toString(), 15),
+                          _quotesList[i].data['created_at'].toString(), 15),
                     ),
+                    // Container(
+                    //   width: isLargeScreen
+                    //       ? MediaQuery.of(context).size.width / 5
+                    //       : MediaQuery.of(context).size.width / 3,
+                    //   child: simpleText(
+                    //       _quotesList[i].data['client']['Firstname'] + ' ' +_quotesList[i].data['client']['Lastname'] , 15),
+                    // ),
                     Container(
                       width: isLargeScreen
                           ? MediaQuery.of(context).size.width / 5
                           : MediaQuery.of(context).size.width / 3,
                       child: simpleText(
-                          _quotesList[i].data['client']['Firstname'] + ' ' +_quotesList[i].data['client']['Lastname'] , 15),
-                    ),
-                    Container(
-                      width: isLargeScreen
-                          ? MediaQuery.of(context).size.width / 5
-                          : MediaQuery.of(context).size.width / 3,
-                      child: simpleText(
-                          _quotesList[i].data['status']['Designation'], 15),
+                          _quotesList[i].data['status']['Designation'].toString(), 15),
                     ),
 
                   ]),
