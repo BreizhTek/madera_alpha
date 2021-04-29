@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:madera_prototype/src/views/ui/client_list.dart';
+import 'package:madera_prototype/src/views/ui/commercial_customer.dart';
 import 'package:madera_prototype/src/views/ui/commercial_step_1.dart';
 import 'package:madera_prototype/src/views/ui/commercial_step_2.dart';
 import 'package:madera_prototype/src/views/ui/commercial_step_4.dart';
@@ -21,7 +22,7 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/clients_list": (BuildContext context) => ClientsList(),
   "/projects_list": (BuildContext context) => ProjectsList(),
   "/modules_list": (BuildContext context) => ModulesList(),
-  "/commercial/add/client": (BuildContext context) => Commercial(),
+  "/commercial_customer": (BuildContext context) => CommercialCustomer(),
 
 
   "/commercial/ranges": (BuildContext context) => Ranges(),
