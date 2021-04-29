@@ -70,7 +70,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: mainBlue),
         onPressed: () {
-          Navigator.pushNamed(context, "/commercial_1");
+          Navigator.pushNamed(context, action);
         },
         child: FittedBox(
           fit: BoxFit.fitWidth,
@@ -86,8 +86,8 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              button("Nouveau devis", context, false),
-              button("Nouveau client", context, false),
+              button("Nouveau devis", context, "/commercial_1"),
+              button("Nouveau client", context, "/commercial_customer"),
             ]
           )
       );
