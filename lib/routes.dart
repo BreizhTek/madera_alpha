@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:madera_prototype/src/views/ui/bureau_home.dart';
+import 'package:madera_prototype/src/views/ui/bureau_module.dart';
 import 'package:madera_prototype/src/views/ui/client_list.dart';
 import 'package:madera_prototype/src/views/ui/commercial_customer.dart';
 import 'package:madera_prototype/src/views/ui/commercial_step_1.dart';
@@ -23,6 +25,10 @@ final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
   "/projects_list": (BuildContext context) => ProjectsList(),
   "/modules_list": (BuildContext context) => ModulesList(),
   "/commercial_customer": (BuildContext context) => CommercialCustomer(),
+
+  // Bureau d'étude
+  "/bureau": (BuildContext context) => Bureau(),
+  "/bureau_module": (BuildContext context) => BureauModule(),
 
 
   "/commercial/ranges": (BuildContext context) => Ranges(),
