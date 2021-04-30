@@ -41,6 +41,7 @@ class CommercialCustomerState extends State<CommercialCustomer> {
   Widget build(BuildContext context) {
     isLargeScreen = appSetting.getDeviceSize(context);
     return Scaffold(
+        resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,
         appBar: reusableWidgets.header(_title),
         bottomNavigationBar: reusableWidgets.bottomBar(),
@@ -120,6 +121,7 @@ class CommercialCustomerState extends State<CommercialCustomer> {
             ? MediaQuery.of(context).size.width / 1.5
             : MediaQuery.of(context).size.width / 1.3,
         child: TextFormField(
+          autofocus: true,
           enableSuggestions: true,
           autocorrect: false,
           decoration: InputDecoration(
