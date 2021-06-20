@@ -24,7 +24,7 @@ class _ProjectsList extends State<ProjectsList> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: reusableWidgets.appBarList("Projets existants"),
+      appBar: reusableWidgets.appBarList("Projets existants", context),
       bottomNavigationBar: reusableWidgets.bottomBar(),
       body: SafeArea(
           child: FutureBuilder<bool>(
