@@ -1,5 +1,6 @@
 import 'package:dart_strapi/dart_strapi.dart';
 import 'package:http/http.dart' as http;
+import 'package:madera_prototype/src/buisness_logic/models/client.dart';
 
 
 
@@ -16,27 +17,6 @@ class Api  {
     } catch (DioError) {
       return false;
     }
-  }
-
-  static Future<List<ContentType>> getClients() async {
-    List<ContentType> clients = await Api._strapiClient.find("clients");
-    return clients;
-  }
-
-  static Future<ContentType> createClient(String firstname, String lastname, String addresse, int phone) async {
-    Map<String, dynamic> clientInfos = {
-      "Firstname": firstname,
-      "Lastname": lastname,
-      "Addresse": addresse,
-      "Phone": phone
-    };
-    ContentType client = new ContentType("clients", clientInfos);
-    print(await Api._strapiClient.create(client));
-  }
-
-  static Future<ContentType> getClient(String id) async {
-    ContentType client = await Api._strapiClient.findOne("clients", id);
-    return client;
   }
 
   static Future<List<ContentType>> getProjects() async {
@@ -62,5 +42,52 @@ class Api  {
   static Future<ContentType> getQuote(String id) async {
     ContentType quote = await Api._strapiClient.findOne("quotes", id);
     return quote;
+  }
+
+  // Client
+
+  static Future<List<ContentType>> getClients() async {
+    List<ContentType> clients = await Api._strapiClient.find("clients");
+    return clients;
+  }
+
+  static Future<ContentType> createClient(ContentType client) async {
+    return await Api._strapiClient.create(client);
+  }
+
+  static Future<ContentType> updateClient(ContentType client) async {
+    return await Api._strapiClient.update(client);
+  }
+
+  static Future<ContentType> getClient(String id) async {
+    ContentType client = await Api._strapiClient.findOne("clients", id);
+    return client;
+  }
+
+  static Future<ContentType> deleteClient(String id) async {
+    return await Api._strapiClient.deleteById("clients", id);
+  }
+
+  // Status
+  static Future<ContentType> getStatus(String id) async {
+    return await Api._strapiClient.findOne("statuses", id);
+  }
+
+  static Future<List<ContentType>> getStatuses() async {
+    return await Api._strapiClient.find("statuses");
+  }
+
+  static Future<ContentType> createStatus(Map<String, dynamic> wrapped) async {
+    ContentType newStatus = new ContentType("statuses", wrapped);
+    return await Api._strapiClient.create(newStatus);
+  }
+
+  static Future<ContentType> deleteStatus(String id) async {
+    return await Api._strapiClient.deleteById("statuses", id);
+  }
+
+  static Future<ContentType> updateStatus(Map<String, dynamic> wrapped) async {
+    ContentType updatedStatus = new ContentType("statuses", wrapped);
+    return await Api._strapiClient.update(updatedStatus);
   }
 }
