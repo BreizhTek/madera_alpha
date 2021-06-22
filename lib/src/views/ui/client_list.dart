@@ -28,7 +28,7 @@ class _ClientsList extends State<ClientsList> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: reusableWidgets.appBarList("Clients existants", context),
-      bottomNavigationBar: reusableWidgets.bottomBar(),
+      bottomNavigationBar: reusableWidgets.bottomBar(context),
       body: SafeArea(
           child: FutureBuilder<bool>(
               future: this.getClientsList(),

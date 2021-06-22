@@ -13,6 +13,7 @@ class _CommercialStep1State extends State<CommercialStep1> {
   String _title = "Création de devis";
   String _project;
   List<String> _clientList = [];
+  List<String> _projectList = [];
   DateTime selectedDate = DateTime.now();
 
   @override
@@ -26,7 +27,7 @@ class _CommercialStep1State extends State<CommercialStep1> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: reusableWidgets.header(_title),
-        bottomNavigationBar: reusableWidgets.bottomBar(),
+        bottomNavigationBar: reusableWidgets.bottomBar(context),
         body: Form(
           child: Center(
             child: ListView(
@@ -79,6 +80,37 @@ class _CommercialStep1State extends State<CommercialStep1> {
     return rows;
   }
 
+  List<Widget> projectList() {
+    List<Widget> rows = [];
+    if (_projectList.isNotEmpty) {
+      for (var i = 0; i < _projectList.length; i++) {
+        rows.add(
+          Container(
+            // width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.all(3),
+            padding: isLargeScreen ? EdgeInsets.all(12) : EdgeInsets.all(6),
+            child: Text(_projectList[i].toString()),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(3),
+                  topRight: Radius.circular(3),
+                  bottomLeft: Radius.circular(3),
+                  bottomRight: Radius.circular(3)),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 5,
+                    offset: Offset(0.0, 5)),
+              ],
+            ),
+          ),
+        );
+      }
+    }
+    return rows;
+  }
+
   Column mainView() {
     return Column(
       children: [
@@ -105,6 +137,15 @@ class _CommercialStep1State extends State<CommercialStep1> {
               // textField("Vous devez renseigner une date pour le devis",
               //     "Date devis"),
               listShow("Référence projet", "Nouveau projet", "/projects_list"),
+              Container(
+                margin: isLargeScreen
+                    ? EdgeInsets.only(top: 20, bottom: 2)
+                    : EdgeInsets.only(top: 5),
+                child: Wrap(
+                  // children: clientsList(),
+                  children: projectList(),
+                ),
+              ),
               if (isLargeScreen) dividerBlock(50),
               buttons("Annuler", "Continuer"),
             ]),
@@ -302,9 +343,13 @@ class _CommercialStep1State extends State<CommercialStep1> {
                           await Navigator.pushNamed(context, routeName);
                       if (routeName == '/clients_list') {
                         setState(() {
-                          print(result);
                           if(result?.toString().isNotEmpty ?? true)
                           _clientList.add(result.toString());
+                        });
+                      }else{
+                        setState(() {
+                          if(result?.toString().isNotEmpty ?? true)
+                            _projectList.add(result.toString());
                         });
                       }
                     },

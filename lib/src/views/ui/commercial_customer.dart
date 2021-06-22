@@ -44,7 +44,7 @@ class CommercialCustomerState extends State<CommercialCustomer> {
         resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,
         appBar: reusableWidgets.header(_title),
-        bottomNavigationBar: reusableWidgets.bottomBar(),
+        bottomNavigationBar: reusableWidgets.bottomBar(context),
         body: Form(
           key: _formKey,
           child: Center(

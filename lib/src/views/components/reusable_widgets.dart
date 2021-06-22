@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:madera_prototype/src/buisness_logic/utils/configuration.dart';
 import 'package:madera_prototype/src/views/utils/style.dart';
 
 class reusableWidgets {
+
   static AppBar header(String title) {
     return AppBar(
 
@@ -20,7 +23,10 @@ class reusableWidgets {
     );
   }
 
- static bottomBar(){
+ static bottomBar(BuildContext context){
+
+   int selectedIndex = 0;
+
    return BottomNavigationBar(
      backgroundColor: Colors.white,
      items: const <BottomNavigationBarItem>[
@@ -40,9 +46,54 @@ class reusableWidgets {
      //currentIndex: _selectedIndex,
      selectedItemColor: mainBlue,
      iconSize: isLargeScreen ? 50 : 30,
-     //onTap: _onItemTapped,
+     currentIndex: selectedIndex,
+     onTap: (index) {
+       print(index);
+       if(index == 0){
+         Navigator.pushNamed(context, '/commercial_1');
+       }else if(index == 1){
+         Navigator.pushNamed(context, '/commercial_home');
+       }else{
+          showAlertDialog(context);
+         // exit(0);
+       }
+     },
    );
  }
+
+ static showAlertDialog(BuildContext context) {
+
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text("Quitter"),
+      onPressed:  () {
+        exit(0);
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("Continuer"),
+      onPressed:  () {
+        Navigator.pop(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      content: Text("Voulez-vous quittez l'application ?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   static appBarList(String title, BuildContext context){
     return AppBar(

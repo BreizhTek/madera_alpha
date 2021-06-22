@@ -34,7 +34,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: reusableWidgets.header(''),
-      bottomNavigationBar: reusableWidgets.bottomBar(),
+      bottomNavigationBar: reusableWidgets.bottomBar(context),
 
       body: SafeArea(
         child: FutureBuilder<bool> (

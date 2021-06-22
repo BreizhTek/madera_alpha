@@ -17,7 +17,7 @@ class _ProjectsList extends State<ProjectsList> {
   List<ContentType> _projectsList;
 
   Future<bool> getProjectList() async {
-    this._projectsList = await Api.getClients();
+    this._projectsList = await Api.getProjects();
     return true;
   }
 
@@ -25,7 +25,7 @@ class _ProjectsList extends State<ProjectsList> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: reusableWidgets.appBarList("Projets existants", context),
-      bottomNavigationBar: reusableWidgets.bottomBar(),
+      bottomNavigationBar: reusableWidgets.bottomBar(context),
       body: SafeArea(
           child: FutureBuilder<bool>(
               future: this.getProjectList(),
@@ -36,8 +36,8 @@ class _ProjectsList extends State<ProjectsList> {
                       child: Column(
                         children: rowClients(),
                       )
-                    // child: SearchBar(),
-                  );
+                      // child: SearchBar(),
+                      );
                 } else {
                   return Container();
                 }
@@ -63,21 +63,25 @@ class _ProjectsList extends State<ProjectsList> {
   List<Widget> rowClients() {
     List<Widget> rows = [];
 
-    rows.add(
-        Container(
-          width: isLargeScreen ? MediaQuery.of(context).size.width / 2.2 : MediaQuery.of(context).size.width / 1.2,
-          padding: isLargeScreen ? const EdgeInsets.symmetric(horizontal: 5, vertical: 30) : const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-          child: TextField(
-            decoration: InputDecoration(
-                contentPadding: isLargeScreen ? EdgeInsets.symmetric(horizontal: 5, vertical: 10) : EdgeInsets.symmetric(horizontal: 1, vertical: 10),
-                labelText: "Search",
-                hintText: "Search",
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-          ),
-        )
-    );
+    rows.add(Container(
+      width: isLargeScreen
+          ? MediaQuery.of(context).size.width / 2.2
+          : MediaQuery.of(context).size.width / 1.2,
+      padding: isLargeScreen
+          ? const EdgeInsets.symmetric(horizontal: 5, vertical: 30)
+          : const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+      child: TextField(
+        decoration: InputDecoration(
+            contentPadding: isLargeScreen
+                ? EdgeInsets.symmetric(horizontal: 5, vertical: 10)
+                : EdgeInsets.symmetric(horizontal: 1, vertical: 10),
+            labelText: "Recherche",
+            hintText: "Recherche",
+            prefixIcon: Icon(Icons.search),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+      ),
+    ));
 
     for (var i = 0; i < _projectsList.length; i++) {
       rows.add(Container(
@@ -87,27 +91,29 @@ class _ProjectsList extends State<ProjectsList> {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                   bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50)
-              ),
+                  bottomRight: Radius.circular(50)),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.1),
                   spreadRadius: 5,
                   blurRadius: 7,
                   offset: Offset(0, 3), // changes position of shadow
-                )]),
+                )
+              ]),
           margin: EdgeInsets.only(top: 10.0),
           width: isLargeScreen
               ? MediaQuery.of(context).size.width / 1
               : MediaQuery.of(context).size.width / 1,
           child: OutlineButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context,    _projectsList[i].data['Name'].toString() + ' - ' +  _projectsList[i].data['Reference'].toString());
+            },
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
                     alignment: Alignment.centerLeft,
-                    child:  IconButton(
+                    child: IconButton(
                       icon: Icon(Icons.add_outlined),
                       color: mainBlue,
                       onPressed: () {}, //quote.Id
@@ -115,7 +121,14 @@ class _ProjectsList extends State<ProjectsList> {
                   ),
                   Container(
                     width: isLargeScreen
-                        ? MediaQuery.of(context).size.width / 5
+                        ? MediaQuery.of(context).size.width / 30
+                        : MediaQuery.of(context).size.width / 5,
+                    child: simpleText(
+                        _projectsList[i].data['Reference'].toString(), 15),
+                  ),
+                  Container(
+                    width: isLargeScreen
+                        ? MediaQuery.of(context).size.width / 3
                         : MediaQuery.of(context).size.width / 5,
                     child: simpleText(
                         _projectsList[i].data['Name'].toString(), 15),
@@ -125,21 +138,14 @@ class _ProjectsList extends State<ProjectsList> {
                         ? MediaQuery.of(context).size.width / 5
                         : MediaQuery.of(context).size.width / 5,
                     child: simpleText(
-                        _projectsList[i].data['Reference'].toString(), 15),
-                  ),
-                  Container(
-                    width: isLargeScreen
-                        ? MediaQuery.of(context).size.width / 5
-                        : MediaQuery.of(context).size.width / 5,
-                    child: simpleText(
                         _projectsList[i].data['Date'].toString(), 15),
                   ),
-
                 ]),
           )));
     }
     return rows;
   }
+
   Text simpleText(String text, double size) {
     return Text(text,
         textAlign: TextAlign.center,

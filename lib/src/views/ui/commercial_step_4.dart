@@ -41,7 +41,7 @@ class _CommercialStep4State extends State<CommercialStep4> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: reusableWidgets.header(_title),
-      bottomNavigationBar: reusableWidgets.bottomBar(),
+      bottomNavigationBar: reusableWidgets.bottomBar(context),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(

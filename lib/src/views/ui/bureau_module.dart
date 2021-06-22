@@ -42,7 +42,7 @@ class _BureauModuleState extends State<BureauModule> {
         resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,
         appBar: reusableWidgets.header(_title),
-        bottomNavigationBar: reusableWidgets.bottomBar(),
+        bottomNavigationBar: reusableWidgets.bottomBar(context),
         body: Form(
           child: Center(
             child: Column(

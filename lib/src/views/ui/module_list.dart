@@ -25,7 +25,7 @@ class _ModulesList extends State<ModulesList> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: reusableWidgets.appBarList("Module disponible", context),
-      bottomNavigationBar: reusableWidgets.bottomBar(),
+      bottomNavigationBar: reusableWidgets.bottomBar(context),
       body: SafeArea(
           child: FutureBuilder<bool>(
               future: this.getClientsList(),
