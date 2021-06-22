@@ -1,6 +1,7 @@
 import 'package:dart_strapi/dart_strapi.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:madera_prototype/src/buisness_logic/models/client.dart';
 import 'package:madera_prototype/src/buisness_logic/services/api_services/api.dart';
 import 'package:madera_prototype/src/views/components/reusable_widgets.dart';
 import 'package:madera_prototype/src/views/utils/style.dart';
