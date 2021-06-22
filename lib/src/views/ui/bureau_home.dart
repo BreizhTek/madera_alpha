@@ -2,61 +2,76 @@ import 'package:dart_strapi/dart_strapi.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:madera_prototype/src/buisness_logic/services/api_services/api.dart';
-import 'package:madera_prototype/src/buisness_logic/utils/configuration.dart';
 import 'package:madera_prototype/src/views/components/reusable_widgets.dart';
 import 'package:madera_prototype/src/views/utils/style.dart';
+import 'package:madera_prototype/src/buisness_logic/utils/configuration.dart';
 
-class ModulesList extends StatefulWidget {
-  ModulesList({Key key}) : super(key: key);
-
+class Bureau extends StatelessWidget {
   @override
-  _ModulesList createState() => _ModulesList();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: AsyncStatefulWidget(),
+    );
+  }
 }
 
-class _ModulesList extends State<ModulesList> {
-  List<ContentType> _modulesList;
+class AsyncStatefulWidget extends StatefulWidget {
+  AsyncStatefulWidget({Key key}) : super(key: key);
 
-  Future<bool> getClientsList() async {
-    this._modulesList = await Api.getClients();
+  @override
+  _AsyncStatefulWidget createState() => _AsyncStatefulWidget();
+}
+
+class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
+  List<ContentType> _quotesList;
+
+  Future<bool> getQuotesList () async {
+    this._quotesList = await Api.getQuotes();
     return true;
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: reusableWidgets.appBarList("Module disponible", context),
+      appBar: reusableWidgets.header(''),
       bottomNavigationBar: reusableWidgets.bottomBar(),
+
       body: SafeArea(
-          child: FutureBuilder<bool>(
-              future: this.getClientsList(),
+          child: FutureBuilder<bool> (
+              future: this.getQuotesList(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Column(
-                              children: rowClients(),
-                            ),
-                          ]
+                        children: rowQuotes(),
                       )
                     // child: SearchBar(),
                   );
                 } else {
-                  return Container();
+                  return Container(
+                  );
                 }
-              })),
+              }
+          )
+      ),
     );
+    // TODO: implement build
+    throw UnimplementedError();
   }
 
-  Container button(String text, context) {
+  Container button(String text, context, action) {
     return Container(
-      width: MediaQuery.of(context).size.width / 3.3,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width / 3.3,
       margin: new EdgeInsets.symmetric(vertical: 15.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: mainBlue),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, action);
+        },
         child: FittedBox(
           fit: BoxFit.fitWidth,
           child: Text(text),
@@ -65,41 +80,34 @@ class _ModulesList extends State<ModulesList> {
     );
   }
 
-  List<Widget> rowClients() {
+  List<Widget> rowQuotes(){
     List<Widget> rows = [];
-
     rows.add(
-        Container(
-          width: isLargeScreen ? MediaQuery.of(context).size.width / 2.2 : MediaQuery.of(context).size.width / 1.2,
-          padding: isLargeScreen ? const EdgeInsets.symmetric(horizontal: 5, vertical: 20) : const EdgeInsets.symmetric(horizontal: 5, vertical: 30),
-          child: TextField(
-            decoration: InputDecoration(
-                contentPadding: isLargeScreen ? EdgeInsets.symmetric(horizontal: 5, vertical: 10) : EdgeInsets.symmetric(horizontal: 1, vertical: 10),
-                labelText: "Search",
-                hintText: "Search",
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-          ),
+        Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              button("Nouveau Module", context, "/bureau_module"),
+            ]
         )
     );
-
+    //rows.add(rowHeadQuotes());
     rows.add(
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          // child: SearchBar(),
+        Row(
+            children: <Widget>[
+              Text(''),
+              Divider(color: Colors.blue[800]),
+            ]
         )
     );
-    for (var i = 0; i < _modulesList.length; i++) {
-
+    for(var i=0; i<_quotesList.length; i++) {
       rows.add(Container(
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50)
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10)
               ),
               boxShadow: [
                 BoxShadow(
@@ -119,41 +127,59 @@ class _ModulesList extends State<ModulesList> {
                 children: <Widget>[
                   Container(
                     alignment: Alignment.centerLeft,
-                    child:  IconButton(
-                      icon: Icon(Icons.add_outlined),
+                    child: IconButton(
+                      icon: Icon(Icons.remove_red_eye),
                       color: mainBlue,
-                      onPressed: () {}, //quote.Id
                     ),
                   ),
                   Container(
                     width: isLargeScreen
                         ? MediaQuery.of(context).size.width / 5
-                        : MediaQuery.of(context).size.width / 5,
+                        : MediaQuery.of(context).size.width / 3,
                     child: simpleText(
-                        _modulesList[i].data['Label'].toString(), 15),
+                        "Nature", 15),
                   ),
                   Container(
                     width: isLargeScreen
                         ? MediaQuery.of(context).size.width / 5
-                        : MediaQuery.of(context).size.width / 5,
+                        : MediaQuery.of(context).size.width / 3,
                     child: simpleText(
-                        _modulesList[i].data['Height'].toString(), 15),
+                       "Caractéristique", 15),
                   ),
+                  // Container(
+                  //   width: isLargeScreen
+                  //       ? MediaQuery.of(context).size.width / 5
+                  //       : MediaQuery.of(context).size.width / 3,
+                  //   child: simpleText(
+                  //       _quotesList[i].data['client']['Firstname'] + ' ' +_quotesList[i].data['client']['Lastname'] , 15),
+                  // ),
                   Container(
                     width: isLargeScreen
                         ? MediaQuery.of(context).size.width / 5
-                        : MediaQuery.of(context).size.width / 5,
+                        : MediaQuery.of(context).size.width / 3,
                     child: simpleText(
-                        _modulesList[i].data['Width'].toString(), 15),
+                       "Unité d'usage", 15),
                   ),
 
                 ]),
           )));
     }
-
-
     return rows;
   }
+
+  Row rowHeadQuotes(){
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Text('Afficher'),
+          Text('Numéro de commande'),
+          Text('Date'),
+          Text('Client'),
+          Text('Status'),
+        ]
+    );
+  }
+
 
   Text simpleText(String text, double size) {
     return Text(text,
@@ -164,4 +190,5 @@ class _ModulesList extends State<ModulesList> {
           fontWeight: FontWeight.w400,
         ));
   }
+
 }

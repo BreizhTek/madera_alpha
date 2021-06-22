@@ -28,7 +28,7 @@ class _CommercialStep1State extends State<CommercialStep1> {
         bottomNavigationBar: reusableWidgets.bottomBar(),
         body: Form(
           child: Center(
-            child: Column(
+            child: ListView(
               children: [
                 if(isLargeScreen) dividerBlock(50),
                 // divider(4, 4),

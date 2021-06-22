@@ -6,6 +6,7 @@ import 'package:madera_prototype/src/views/utils/style.dart';
 class reusableWidgets {
   static AppBar header(String title) {
     return AppBar(
+
       elevation: 0,
       leading: IconButton(
         color: mainBlue,
@@ -43,14 +44,16 @@ class reusableWidgets {
    );
  }
 
-  static appBarList(String title){
+  static appBarList(String title, BuildContext context){
     return AppBar(
       elevation: 0,
       leading: IconButton(
         color: mainWhite,
         iconSize: isLargeScreen ? 45 : 30,
         icon: Icon(Icons.arrow_back_ios_sharp),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
       backgroundColor: mainBlue,
       centerTitle: true,

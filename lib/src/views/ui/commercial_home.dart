@@ -41,11 +41,9 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
           future: this.getQuotesList(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Container(
+              return ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
                     children: rowQuotes(),
-                  )
                 // child: SearchBar(),
               );
             } else {
@@ -70,7 +68,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(primary: mainBlue),
         onPressed: () {
-          Navigator.pushNamed(context, "/commercial_1");
+          Navigator.pushNamed(context, action);
         },
         child: FittedBox(
           fit: BoxFit.fitWidth,
@@ -86,8 +84,8 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              button("Nouveau devis", context, false),
-              button("Nouveau client", context, false),
+              button("Nouveau devis", context, "/commercial_1"),
+              button("Nouveau client", context, "/commercial_customer"),
             ]
           )
       );
@@ -122,44 +120,49 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
                 ? MediaQuery.of(context).size.width / 1
                 : MediaQuery.of(context).size.width / 1,
             child: OutlineButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/');
+              },
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                   children: <Widget>[
+                    if (isLargeScreen)
                     Container(
+
                       alignment: Alignment.centerLeft,
                       child: IconButton(
-                        icon: Icon(Icons.remove_red_eye),
-                        color: mainBlue,
+                        icon: Icon(Icons.remove_red_eye, color: mainBlue, size: 15),
                       ),
+                    ) ,
+                    Container(
+                      alignment: isLargeScreen ? Alignment.center : Alignment.centerLeft,
+                      width: isLargeScreen
+                          ? MediaQuery.of(context).size.width / 5
+                          : MediaQuery.of(context).size.width / 9,
+                      child: simpleText(
+                          _quotesList[i].data['id'].toString(), 15),
                     ),
                     Container(
                       width: isLargeScreen
                           ? MediaQuery.of(context).size.width / 5
-                          : MediaQuery.of(context).size.width / 3,
+                          : MediaQuery.of(context).size.width / 6,
                       child: simpleText(
-                          _quotesList[i].data['Ammount'].toString(), 15),
+                          _quotesList[i].data['created_at'].toString(), 15),
                     ),
                     Container(
                       width: isLargeScreen
                           ? MediaQuery.of(context).size.width / 5
-                          : MediaQuery.of(context).size.width / 3,
-                      child: simpleText(
-                          _quotesList[i].data['Create'].toString(), 15),
+                          : MediaQuery.of(context).size.width / 4,
+                      child: simpleText( 'Nom prénom', 15)
+                          // _quotesList[i].data['client']['Firstname'] + ' ' +_quotesList[i].data['client']['Lastname'] , 15),
                     ),
                     Container(
                       width: isLargeScreen
                           ? MediaQuery.of(context).size.width / 5
-                          : MediaQuery.of(context).size.width / 3,
+                          : MediaQuery.of(context).size.width / 6,
                       child: simpleText(
-                          _quotesList[i].data['client']['Firstname'] + ' ' +_quotesList[i].data['client']['Lastname'] , 15),
-                    ),
-                    Container(
-                      width: isLargeScreen
-                          ? MediaQuery.of(context).size.width / 5
-                          : MediaQuery.of(context).size.width / 3,
-                      child: simpleText(
-                          _quotesList[i].data['status']['Designation'], 15),
+                          _quotesList[i].data['status']['Designation'].toString(), 15) ,
                     ),
 
                   ]),
@@ -186,7 +189,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
     return Text(text,
         textAlign: TextAlign.center,
         style: GoogleFonts.montserrat(
-          fontSize: isLargeScreen ? size : size - 3,
+          fontSize: isLargeScreen ? size : size - 7,
           color: mainBlue,
           fontWeight: FontWeight.w400,
         ));
