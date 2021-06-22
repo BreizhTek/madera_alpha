@@ -121,7 +121,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
                 : MediaQuery.of(context).size.width / 1,
             child: OutlineButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/');
+                // Navigator.pushNamed(context, '/');
               },
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -154,8 +154,8 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
                       width: isLargeScreen
                           ? MediaQuery.of(context).size.width / 5
                           : MediaQuery.of(context).size.width / 4,
-                      child: simpleText( 'Nom prénom', 15)
-                          // _quotesList[i].data['client']['Firstname'] + ' ' +_quotesList[i].data['client']['Lastname'] , 15),
+                      child: simpleText(
+                          _quotesList[i].data['clients']['Firstname'] + ' ' +_quotesList[i].data['client']['Lastname'] , 15),
                     ),
                     Container(
                       width: isLargeScreen

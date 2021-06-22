@@ -33,8 +33,8 @@ class _LoginState extends State<Login> {
         body: Form(
             key: _formKey,
             child: Container(
-              child: Center(
-                child: Column(
+              child: ListView(
+                children: <Widget>[ Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
@@ -51,7 +51,7 @@ class _LoginState extends State<Login> {
                           true),
                       button("CONNEXION"),
                       ThemeText.simpleText("Problème de connexion ?")
-                    ]),
+                    ]) ],
               ),
             )));
   }
