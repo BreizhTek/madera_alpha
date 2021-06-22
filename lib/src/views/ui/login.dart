@@ -33,29 +33,30 @@ class _LoginState extends State<Login> {
         key: _scaffoldKey,
         appBar: reusableWidgets.header(''),
         body: Form(
-            key: _formKey,
-            child: Container(
-              child: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        child: ThemeText.title(_title),
-                      ),
-                      subTitle("Connexion"),
-                      textField(
-                          "Email",
-                          "Vous devez renseigner une adresse Email",
-                          false),
-                      textField(
-                          "Mot de passe",
-                          "Vous devez renseigner un mot de passe",
-                          true),
-                      button("CONNEXION"),
-                      ThemeText.simpleText("Problème de connexion ?")
-                    ]),
-              ),
-            )));
+              key: _formKey,
+              child: Container(
+                child: Center(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          child: ThemeText.title(_title),
+                        ),
+                        subTitle("Connexion"),
+                        textField(
+                            "Email",
+                            "Vous devez renseigner une adresse Email",
+                            false),
+                        textField(
+                            "Mot de passe",
+                            "Vous devez renseigner un mot de passe",
+                            true),
+                        button("CONNEXION"),
+                        ThemeText.simpleText("Problème de connexion ?")
+                      ]) ,
+                ),
+              )),
+    );
   }
 
   void _submit() {
