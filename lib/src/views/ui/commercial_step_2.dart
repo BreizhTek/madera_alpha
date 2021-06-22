@@ -205,7 +205,7 @@ class _CommercialStep2State extends State<CommercialStep2> {
                 padding: isLargeScreen ? EdgeInsets.only(top: 20.0 , bottom: 20, right: 50, left: 50) : EdgeInsets.only(top: 15.0 , bottom: 15, right: 20, left: 20),
                 child: Text(buttonText1),
                 onPressed: () {
-                  Navigator.pushNamed(context, "/commercial_1");
+                  Navigator.pop(context);
                 },
                 shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(13.0))
             ),
@@ -217,7 +217,9 @@ class _CommercialStep2State extends State<CommercialStep2> {
               padding: isLargeScreen ? EdgeInsets.only(top: 20.0 , bottom: 20, right: 50, left: 50) : EdgeInsets.only(top: 15.0 , bottom: 15, right: 20, left: 20),
               child: Text(buttonText2),
               shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(13.0)),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/commercial_4');
+              },
             ),
           ],
         ));

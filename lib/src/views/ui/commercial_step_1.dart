@@ -302,6 +302,8 @@ class _CommercialStep1State extends State<CommercialStep1> {
                           await Navigator.pushNamed(context, routeName);
                       if (routeName == '/clients_list') {
                         setState(() {
+                          print(result);
+                          if(result?.toString().isNotEmpty ?? true)
                           _clientList.add(result.toString());
                         });
                       }
