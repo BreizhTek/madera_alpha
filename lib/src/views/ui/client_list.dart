@@ -36,15 +36,13 @@ class _ClientsList extends State<ClientsList> {
                 if (snapshot.hasData) {
                   return SingleChildScrollView(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
+                      child: Center(
+                        child:
                           Column(
                             children: rowClients(),
                           ),
-                        ]
+
                       )
-                      // child: SearchBar(),
                       );
                 } else {
                   return Container();
@@ -79,8 +77,8 @@ class _ClientsList extends State<ClientsList> {
             TextField(
             decoration: InputDecoration(
               contentPadding: isLargeScreen ? EdgeInsets.symmetric(horizontal: 5, vertical: 10) : EdgeInsets.symmetric(horizontal: 1, vertical: 10),
-                labelText: "Search",
-                hintText: "Search",
+                labelText: "Recherche",
+                hintText: "Recherche",
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(
                  borderRadius: BorderRadius.all(Radius.circular(25.0)))),
@@ -89,7 +87,10 @@ class _ClientsList extends State<ClientsList> {
        );
     for (var i = 0; i < _clientsList.length; i++) {
 
-      rows.add(Container(
+      rows.add(
+           // GestureDetector(
+           //  behavior: HitTestBehavior.translucent,
+           Container(
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -107,10 +108,12 @@ class _ClientsList extends State<ClientsList> {
                 )]),
           margin: EdgeInsets.only(top: 10.0),
           width: isLargeScreen
-              ? MediaQuery.of(context).size.width / 1
+              ? MediaQuery.of(context).size.width / 1.5
               : MediaQuery.of(context).size.width / 1,
           child: OutlineButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context,  _clientsList[i].data['Firstname'].toString() + ' ' + _clientsList[i].data['Lastname'].toString());
+            },
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -123,23 +126,27 @@ class _ClientsList extends State<ClientsList> {
                     ),
                   ),
                   Container(
+                    alignment: Alignment.center,
                     width: isLargeScreen
-                        ? MediaQuery.of(context).size.width / 5
+                        ? MediaQuery.of(context).size.width / 4
                         : MediaQuery.of(context).size.width / 3,
                     child: simpleText(
                         _clientsList[i].data['Firstname'].toString(), 15),
                   ),
                   Container(
+                    alignment: Alignment.center,
                     width: isLargeScreen
-                        ? MediaQuery.of(context).size.width / 5
+                        ? MediaQuery.of(context).size.width / 4
                         : MediaQuery.of(context).size.width / 3,
                     child: simpleText(
                         _clientsList[i].data['Lastname'].toString(), 15),
                   ),
-                  if(isLargeScreen) container(i),
-
                 ]),
-          )));
+          )
+           ));
+
+          // )
+      // );
     }
 
 

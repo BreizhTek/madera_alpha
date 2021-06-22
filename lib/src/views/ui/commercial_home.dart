@@ -44,11 +44,11 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
               return ListView(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                     children: rowQuotes(),
-                // child: SearchBar(),
               );
             } else {
-              return Container(
-              );
+              return CircularProgressIndicator();
+              // return Container(
+              // );
             }
           }
         )
@@ -79,6 +79,12 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
   }
 
   List<Widget> rowQuotes(){
+    var borderData=BorderSide(
+      color: Colors.white, //Color of the border
+      style: BorderStyle.solid, //Style of the border
+      width: 1, //width of the border
+    );
+
       List<Widget> rows = [];
       rows.add(
           Row(
@@ -123,6 +129,8 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
               onPressed: () {
                 // Navigator.pushNamed(context, '/');
               },
+              borderSide: borderData,
+              // padding: EdgeInsets.all(12),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
@@ -155,7 +163,7 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
                           ? MediaQuery.of(context).size.width / 5
                           : MediaQuery.of(context).size.width / 4,
                       child: simpleText(
-                          _quotesList[i].data['clients']['Firstname'] + ' ' +_quotesList[i].data['client']['Lastname'] , 15),
+                          _quotesList[i].data['clients'][0]['Firstname'].toString() + ' ' +_quotesList[i].data['clients'][0]['Lastname'].toString() , 15),
                     ),
                     Container(
                       width: isLargeScreen
@@ -166,7 +174,9 @@ class _AsyncStatefulWidget extends State<AsyncStatefulWidget> {
                     ),
 
                   ]),
-            )));
+            )
+        )
+    );
       }
       return rows;
   }
