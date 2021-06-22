@@ -32,7 +32,7 @@ class _CommercialStep2State extends State<CommercialStep2> {
               children: [
                 if(isLargeScreen) dividerBlock(50),
                 // divider(4, 4),
-                title("Conception des porduits"),
+                title("Conception des produits"),
                 divider(1.1, 4),
                 Container(
                   width: isLargeScreen

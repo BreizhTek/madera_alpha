@@ -40,7 +40,8 @@ class Api  {
   }
 
   static Future<ContentType> getQuote(String id) async {
-    return await Api._strapiClient.findOne("quotes", id);
+    ContentType quote = await Api._strapiClient.findOne("quotes", id);
+    return quote;
   }
 
   // Client
